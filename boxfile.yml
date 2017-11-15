@@ -1,0 +1,27 @@
+run.config:
+  engine: python
+  engine.config:
+    runtime: python-3.6
+
+  # add nginx package
+  extra_packages:
+    - nginx
+
+deploy.config:
+  # collect static assets during deploy
+  extra_steps:
+    - pip install -r requirements.txt
+    - python manage.py collectstatic --noinput --clear
+
+  before_live:
+    web.main:
+      - python manage.py migrate --fake-initial
+
+# add a postgres database
+data.db:
+  image: nanobox/postgresql:9.6
+
+web.main:
+  start:
+    nginx: nginx -c /app/etc/nginx.conf
+    django: gunicorn -c /app/etc/gunicorn.py projectname.wsgi
