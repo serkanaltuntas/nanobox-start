@@ -1,4 +1,4 @@
-from ideabox.settings import *
+from PROJECT_NAME.settings import *
 
 DATABASES = {
     'default': {
