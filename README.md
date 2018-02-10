@@ -114,3 +114,13 @@ nanobox run python manage.py migrate
 nanobox remote add <nanobox-app-name>
 nanobox deploy
 ```
+
+## Localhost
+```bash
+# Add a convenient way to access your app from the browser
+nanobox dns add local django.local
+
+# Run django as you would normally, with Nanobox
+nanobox run python manage.py runserver 0.0.0.0:8000
+```
+Visit http://django.local:8000
